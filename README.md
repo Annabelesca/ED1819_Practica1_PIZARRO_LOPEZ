@@ -4,19 +4,26 @@
 ## 1. Introducció
 Aquesta pràctica es basa en la recopilació de les diferents estructures de dades que hem anat implementant a les primeres sessions de laboratori. L’objectiu de la pràctica és crear una única llibreria i comprovar el correcte funcionament d’aquesta, per tant l’estructura de la que consta la pràctica serà la següent:
 
-![Il·lustració 1. Estructura general de la pràctica](https://github.com/Annabelesca/ED1819_Practica1_PIZARRO_LOPEZ/blob/master/Ilustracions/Ilustracio1.png)
+<p align="center">
+  <img alt="Il·lustració 1.Estructura general de la pràctica" src="https://github.com/Annabelesca/ED1819_Practica1_PIZARRO_LOPEZ/blob/master/Ilustracions/Ilustracio1.png">
+</p>
+
 
 ## 2. La Pila
 La pila és una estructura de dades que consta d’una base on s’emmagatzemen els elements. Aquests es van afegint un sobre l’altre (és a dir, es van apilant). Només és pot accedir a l’últim element que ha sigut apilat, que rep el nom de Cim. Aquesta estructura és de tipus LIFO (Last In, First Out).
 El tipus d’implementació que farem servir en aquesta pràctica és sobre vector i només emmagatzemem enters a la pila. La nostra estructura, a més, emmagatzemarà (com enters) el nombre màxim de elements que pot contenir i el nombre dels elements que es troben emmagatzemats (que a més, marcarà la posició del Cim). Per tant, la nostra estructura segueix aquest model:
 
-![Il·lustració 2. Representació Pila sobre vector](https://github.com/Annabelesca/ED1819_Practica1_PIZARRO_LOPEZ/blob/master/Ilustracions/Ilustracio2.png)
+<p align="center">
+  <img alt="Il·lustració 2. Representació Pila sobre vector" src="https://github.com/Annabelesca/ED1819_Practica1_PIZARRO_LOPEZ/blob/master/Ilustracions/Ilustracio2.png">
+</p>
+
 
 ### 2.1	Cost d’emmagatzemament: 
 Suposem que un enter ocupa un espai de 4Bytes.
 La nostra estructura consta de 2 enters: El que determina la posició del cim dins l’estructura i el que determina quants elements com a màxim pot contenir l’estructura -> 8Bytes.
 A més, també conté un vector d’enters -> MaxElems * 4Bytes.
-<p align="center">Cost espaial Pila = 8 Bytes + (MaxElems* 4Bytes)</p> 
+
+<p align="center"><b>Cost espaial Pila = 8 Bytes + (MaxElems* 4Bytes)</b></p>
 
 ### 2.2	Funcions disponibles i costos temporals de l’estructura Pila: 
 Totes les funcions següents es troben definides al header “pila.h”.
@@ -143,15 +150,17 @@ La cua és una estructura de dades que consta d’una base on s’emmagatzemen e
 
 El tipus d’implementació que farem servir en aquesta pràctica és sobre vector circular. D’aquesta manera, i com veurem més endavant, evitem que la funció d’esborrat tingui un cost Θ(n) i que se’ns dispari quan hagi molts elements.  Només emmagatzemem enters a la pila. La nostra estructura, a més, emmagatzemarà (com enters) el nombre màxim de elements que pot contenir, el nombre dels elements que es troben emmagatzemats, la posició del primer element de l’estructura i la posició de l’últim. Per tant, la nostra estructura segueix aquest model:
 
+<p align="center">
+  <img alt="Il·lustració 3. Representació Cua Circular" src="https://github.com/Annabelesca/ED1819_Practica1_PIZARRO_LOPEZ/blob/master/Ilustracions/Ilustracio3.png">
+</p>
 
-![Il·lustració 3. Representació cua circular](https://github.com/Annabelesca/ED1819_Practica1_PIZARRO_LOPEZ/blob/master/Ilustracions/Ilustracio3.png)
 
 ### 3.1	Cost d’emmagatzemament: 
 Suposem que un enter ocupa un espai de 4Bytes.
 La nostra estructura consta de 4 enters: El que determina la posició del primer element dins l’estructura, el que determina la posició de l’últim element dins l’estructura, el que indica quants elements hi ha emmagatzemats i el que determina quants elements com a màxim pot contenir l’estructura -> 16 Bytes.
 A més, també conté un vector d’enters -> MaxElems * 4Bytes.
 
-<p align="center">Cost espaial Cua = 16 Bytes + (MaxElems * 4 Bytes)</p> 
+<p align="center"><b>Cost espaial Cua = 16 Bytes + (MaxElems * 4 Bytes)</b></p> 
 
 ### 3.2	Funcions disponibles i costos temporals de l’estructura Pila: 
 Totes les funcions següents es troben definides al header “cua.h”.
@@ -277,7 +286,10 @@ Què passa si aquest PDI apunta al primer element de la llista? L’anterior no 
 
 La nostra llista no serà d’enters, sinó que serà d’un registre anomenat “Node”. El node contindrà un enter, que serà la informació que ens interessarà emmagatzemar i un encadenament que serà un punter al següent node. La llista com a estructura contindrà un punter al primer element de la llista (a l’element fantasma) i un altre punter al anterior al PDI. La representació d’aquesta estructura seria la següent: 
 
-![Il·lustració 4. Representació Llista amb PDI i element fantasma](https://github.com/Annabelesca/ED1819_Practica1_PIZARRO_LOPEZ/blob/master/Ilustracions/Ilustracio4.png)
+<p align="center">
+  <img alt="Il·lustració 4. Representació Llista amb PDI i element fantasma" src="https://github.com/Annabelesca/ED1819_Practica1_PIZARRO_LOPEZ/blob/master/Ilustracions/Ilustracio4.png">
+</p>
+
 
 ### 4.1	Cost d’emmagatzemament: 
 Suposem que un enter ocupa un espai de 4Bytes i un punter ocupa un espai de 4Bytes també.
@@ -286,7 +298,7 @@ Dividim l’estructura en dos parts:
 - Node: Consta d’un enter i un punter al següent node -> 8Bytes.
 - Llista: Consta de dos punters -> 8Bytes.
 
-<p align="center">Cost espaial Llista = 8 Bytes + (MaxElems * mida(Node))= 8 Bytes + (MaxElems*8Bytes)</p> 
+<p align="center"><b>Cost espaial Llista = 8 Bytes + (MaxElems * mida(Node))= 8 Bytes + (MaxElems*8Bytes)</b></p> 
 
 ### 4.2	Funcions disponibles i costos temporals de l’estructura Pila: 
 Totes les funcions següents es troben definides al header “llista.h”.
@@ -318,7 +330,9 @@ Mètode de modificació de l’estructura que insereix l’element passat per pa
 
 **Anàlisi del cost:   Θ(1)** -> Inserir_Llista és una funció que només fa assignacions, per tant el seu cost serà constant.
 
-![Il·lustració 5. Representació de la funció inserir](https://github.com/Annabelesca/ED1819_Practica1_PIZARRO_LOPEZ/blob/master/Ilustracions/Ilustracio5.png)
+<p align="center">
+  <img alt="Il·lustració 5. Representació de la funció inserir" src="https://github.com/Annabelesca/ED1819_Practica1_PIZARRO_LOPEZ/blob/master/Ilustracions/Ilustracio5.png">
+</p>
 
 #### Esborrar_Llista   
 ```java
@@ -334,7 +348,10 @@ Mètode de modificació de l’estructura que esborra l’element referenciat pe
 
 **Anàlisi del cost:   Θ(1)** -> Esborrar_Llista és una funció que només fa assignacions, per tant el seu cost serà constant.
 
-![Il·lustració 6. Representació de la funció esborrar](https://github.com/Annabelesca/ED1819_Practica1_PIZARRO_LOPEZ/blob/master/Ilustracions/Ilustracio6.png)
+<p align="center">
+  <img alt="Il·lustració 6. Representació de la funció esborrar" src="https://github.com/Annabelesca/ED1819_Practica1_PIZARRO_LOPEZ/blob/master/Ilustracions/Ilustracio6.png">
+</p>
+
 
 #### Actual_Llista   
 ```java
