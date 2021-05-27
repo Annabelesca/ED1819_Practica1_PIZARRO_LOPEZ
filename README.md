@@ -266,3 +266,172 @@ Mètode que s’encarrega d’imprimir per pantalla els errors que es produeixen
 -	i: Enter que representa el tipus d’error que s’ha produït. Si i=0, es printejarà un error de cua buida. Si i=1, es printejarà un error de cua plena. 
 
 **Anàlisi del cost:   Θ(1)** -> Només es fa un switch i es printeja, per tant, el cost és constant.
+
+
+## 4. La Llista
+La cua és una estructura de dades on es pot afegir elements a qualsevol posició. El tipus d’implementació que farem servir en aquesta pràctica és amb gestió dinàmica. 
+
+La nostra llista es correspondrà a un punter que farà referència al primer element de la llista i a l’element anterior al punt d’interès. Això és degut a què, com els elements només tenen un encadenament cap endavant, quan volguéssim introduir un element davant del punt d’interès no tindríem cap manera d’enllaçar aquest nou amb els elements que precedeixen el PDI. És per això que no es referencia el PDI, sinó l’anterior a aquest. 
+
+Què passa si aquest PDI apunta al primer element de la llista? L’anterior no estaria apuntant a cap element de la llista. Per solucionar aquest inconvenient, es crea l’element fantasma, que és un element que es situa a l’inici de la llista i que no tindrà valor. Només estarà perquè l’anterior al PDI pugui apuntar dins la llista. 
+
+La nostra llista no serà d’enters, sinó que serà d’un registre anomenat “Node”. El node contindrà un enter, que serà la informació que ens interessarà emmagatzemar i un encadenament que serà un punter al següent node. La llista com a estructura contindrà un punter al primer element de la llista (a l’element fantasma) i un altre punter al anterior al PDI. La representació d’aquesta estructura seria la següent: 
+
+![Il·lustració 4. Representació Llista amb PDI i element fantasma](https://github.com/Annabelesca/ED1819_Practica1_PIZARRO_LOPEZ/blob/master/Ilustracions/Ilustracio4.png)
+
+### 4.1	Cost d’emmagatzemament: 
+Suposem que un enter ocupa un espai de 4Bytes i un punter ocupa un espai de 4Bytes també.
+Dividim l’estructura en dos parts:
+
+- Node: Consta d’un enter i un punter al següent node -> 8Bytes.
+- Llista: Consta de dos punters -> 8Bytes.
+
+<p align="center">Cost espaial Llista = 8 Bytes + (MaxElems * mida(Node))= 8 Bytes + (MaxElems*8Bytes)</p> 
+
+### 4.2	Funcions disponibles i costos temporals de l’estructura Pila: 
+Totes les funcions següents es troben definides al header “llista.h”.
+
+#### Crear_Llista 
+```java
+Llista Crear_Llista(); 
+```
+Constructor de l’estructura Llista. La funció crea una estructura de dades de Tipus Llista i inicialitza les seves variables creant un punter i s’assegura que hagi suficient espai per crear la llista. Un cop creada, fa que els punters primer i anterior referenciïn aquest node. Per finalitzar, fa que l’encadenament d’aquest node apunti a NULL.
+
+**Retorna:** 
+- Estructura de tipus Llista amb l’element fantasma.
+- 
+**Anàlisi del cost:   Θ(1)** -> Crear_Llista és una funció que només fa assignacions, per tant el seu cost serà constant.
+
+
+#### Inserir_Llista   
+```java
+Llista Inserir_Llista(Llista L, int E); 
+```
+Mètode de modificació de l’estructura que insereix l’element passat per paràmetre davant del PDI. Per fer això, s’intenta crear el nou node. Al qual se li assigna el enter que s’ha passat per paràmetre i es fa que aquest apunti al PDI. Com el que es té a la llista és la referència al node anterior, s’utilitza aquesta referència per obtenir el PDI i poder fer que el nou node pugui apuntar-lo. Desprès es canvia l’encadenament de l’anterior i passa a apuntar el nou node. Finalment fem que anterior apunti al nou node creat. 
+
+**Paràmetres:**
+- L: Llista a la qual es vol inserir l’element.
+- E: Enter que es vol inserir a la llista.
+	
+**Retorna:** 
+- Estructura de tipus Llista amb el nou element i amb anterior apuntant al nou node o un error si no s’ha pogut crear el node corresponent.	
+
+**Anàlisi del cost:   Θ(1)** -> Inserir_Llista és una funció que només fa assignacions, per tant el seu cost serà constant.
+
+![Il·lustració 5. Representació de la funció inserir](https://github.com/Annabelesca/ED1819_Practica1_PIZARRO_LOPEZ/blob/master/Ilustracions/Ilustracio5.png)
+
+#### Esborrar_Llista   
+```java
+Llista Esborrar_Llista(Llista L); 
+```
+Mètode de modificació de l’estructura que esborra l’element referenciat pel PDI i mou el PDI a la següent posició. Per aconseguir-ho el que es fa és obtenir la referència al PDI a partir de l’encadenament de l’anterior i fer que l’encadenament del anterior sigui l’encadenament del PDI. Per finalitzar, alliberem l’espai del node del PDI.  
+
+**Paràmetres:**
+- L: Llista de la qual es vol esborrar l’element.
+	
+**Retorna:** 
+- Estructura de tipus Llista sense aquest node i amb un nou PDI (el següent element) o error si la llista era buida o el PDI es troba a la dreta del tot.
+
+**Anàlisi del cost:   Θ(1)** -> Esborrar_Llista és una funció que només fa assignacions, per tant el seu cost serà constant.
+
+![Il·lustració 6. Representació de la funció esborrar](https://github.com/Annabelesca/ED1819_Practica1_PIZARRO_LOPEZ/blob/master/Ilustracions/Ilustracio6.png)
+
+#### Actual_Llista   
+```java
+int Actual_Llista(Llista L); 
+```
+Mètode de consulta que retorna l’element referenciat pel PDI. 
+
+**Paràmetres:**
+- L: Llista de la qual es vol obtenir l’element referenciat pel PDI.
+	
+**Retorna:** 
+- Enter amb el valor del node PDI o error si PDI es troba a la dreta.
+
+**Anàlisi del cost:   Θ(1)** -> Actual_Llista és una funció que només fa assignacions, per tant el seu cost serà constant.
+
+#### EsBuida_Llista    
+```java
+int EsBuida_Llista(Llista L); 
+```
+Mètode de consulta que comprova si l’estructura és buida comprovant si l’encadenament del primer element (l’element fantasma) és una referència a NULL. 
+
+**Paràmetres:**
+- L: Llista la qual es vol comprovar si és buida.
+	
+**Retorna:** 
+- 1 si l’estructura és buida, 0 altrament.
+
+**Anàlisi del cost:   Θ(1)** -> EsBuida_Llista és una funció que només fa una comparació, per tant, el seu cost serà constant.
+
+#### Principi_Llista    
+```java
+Llista Principi_Llista(Llista L); 
+```
+Mètode per moure el PDI a l’inici de la llista. Iguala el punter a l’anterior a la referència del primer.
+
+**Paràmetres:**
+- L: Llista de la qual es vol moure el PDI a l’inici.
+	
+**Retorna:** 
+- Estructura de tipus Llista amb el PDI apuntant al primer element.
+
+**Anàlisi del cost:   Θ(1)** -> Principi_Llista és una funció que només fa una assignació, per tant, el seu cost serà constant.
+
+#### Seguent_Llista    
+```java
+Llista Seguent_Llista(Llista L); 
+```
+Mètode per moure el PDI una posició a la dreta. El que es fa és que l’anterior apunti al seu encadenament.
+
+**Paràmetres:**
+- L: Llista de la qual es vol moure el PDI.
+	
+**Retorna:** 
+- Estructura de tipus Llista amb el PDI apuntant al següent element o error si el PDI es troba a la dreta del tot.
+
+**Anàlisi del cost:   Θ(1)** -> Seguent_Llista és una funció que només fa una assignació, per tant, el seu cost serà constant.
+
+#### EsFinal_Llista    
+```java
+int EsFinal_Llista(Llista L); 
+```
+Mètode per comprovar si el PDI es troba a la dreta del tot comprovant si l’encadenament del node anterior és igual a Null.
+
+**Paràmetres:**
+- L: Llista de la qual es vol comprovar si el PDI es troba a la dreta del tot.
+	
+**Retorna:** 
+- 1 si PDI es troba a la dreta del tot, 0 altrament.
+
+**Anàlisi del cost:   Θ(1)** -> EsFinal_Llista és una funció que només fa una assignació, per tant, el seu cost serà constant.
+
+#### Fusiona_Llista    
+```java
+Llista Fusiona_Llista(Llista L1, Llista2); 
+```
+Mètode per concatenar dues llistes. El que es fa és buscar l’últim node de la primera llista i concatenar-lo amb el primer node de la segona llista, tenint en compte que cal evitar concatenar-lo amb l’element fantasma de la segona llista. 
+
+**Paràmetres:**
+- L: Llista de la qual es vol comprovar si el PDI es troba a la dreta del tot.
+	
+**Retorna:** 
+- Estructura de tipus llista que conté els elements de les dues llistes concatenades. El PDI de la qual pertanyerà a la primera llista.
+
+**Anàlisi del cost:   Θ(n)** -> Fusiona_Llista és una funció que ha de recórrer tots els nodes de la primera llista fins trobar l’últim, que acabarà concatenant-se amb el primer element de la segona llista.
+
+#### Print_Llista    
+```java
+void Print_Llista(Llista L); 
+```
+
+Mètode per printejar per pantalla el contingut de la llista que s’ha passat per referència sense modificar el seu PDI. Mostrarà els elements separats per el camp ‘->’
+
+**Paràmetres:**
+- L: Llista que es vol printejar.
+
+**Anàlisi del cost:   Θ(n)** -> Print_Llista és una funció que ha de recórrer tots els nodes de la llista fins trobar l’últim i anar printejant el valor dels nodes.
+
+
+### 4.3	Discussió costos lineals de les funcions Fusiona i Print:
+Aquestes dues funcions, a diferència de la resta, tenen un cost temporal lineal que va lligat a la quantitat d’elements que formen part de l’estructura. En alguns casos, si el nombre d’elements és molt gran, aquest cost podria arribar a ser prohibitiu. En el cas de la funció de printejar aquest cost no es pot evitar de cap manera ja que s’ha de recórrer si o si l’estructura. En canvi, a la funció de fusionar llista es podria evitar si afegíssim un nou punter a l’estructura que referenciés l’últim element. A canvi de 4Bytes, obtindríem un cost constant a l’hora de fusionar les dues llistes ja que només faria falta una assignació. Aquesta millora seria més significativa entre més elements contingués l’estructura. 
